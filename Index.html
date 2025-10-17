@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff - Servidor da Sammyzuka</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffb3d9 0%, #ff80bf 50%, #ffb3e6 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Decoração de coelhinhos */
+        .bunny-decoration {
+            position: fixed;
+            font-size: 3em;
+            opacity: 0.15;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bunny-1 { top: 10%; left: 5%; animation-delay: 0s; }
+        .bunny-2 { top: 20%; right: 8%; animation-delay: 1s; }
+        .bunny-3 { bottom: 15%; left: 10%; animation-delay: 2s; }
+        .bunny-4 { bottom: 25%; right: 5%; animation-delay: 3s; }
+        .bunny-5 { top: 50%; left: 3%; animation-delay: 1.5s; }
+        .bunny-6 { top: 60%; right: 7%; animation-delay: 2.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px 40px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(255, 128, 191, 0.4);
+            animation: slideIn 0.5s ease-out;
+            position: relative;
+            z-index: 1;
+            border: 3px solid rgba(255, 179, 217, 0.5);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .bunny-logo {
+            font-size: 5em;
+            margin-bottom: 10px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        h1 {
+            background: linear-gradient(135deg, #ff80bf, #ff4d94);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #ff4d94;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .server-name {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .staff-card {
+            background: linear-gradient(135deg, #ffb3d9 0%, #ff80bf 100%);
+            border-radius: 20px;
+            padding: 30px 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .staff-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 128, 191, 0.5);
+        }
+
+        .staff-card:hover::before {
+            opacity: 1;
+        }
+
+        .staff-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .staff-title {
+            color: white;
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .staff-description {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn-apply {
+            background: white;
+            color: #ff4d94;
+            border: 2px solid #ff4d94;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            z-index: 10;
+        }
+
+        .btn-apply:hover {
+            background: #ff4d94;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #ff4d94;
+            font-size: 0.95em;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .bunny-logo {
+                font-size: 4em;
+            }
+
+            .staff-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bunny-decoration {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Decoração de coelhinhos -->
+    <div class="bunny-decoration bunny-1">🐰</div>
+    <div class="bunny-decoration bunny-2">🐇</div>
+    <div class="bunny-decoration bunny-3">🐰</div>
+    <div class="bunny-decoration bunny-4">🐇</div>
+    <div class="bunny-decoration bunny-5">🐰</div>
+    <div class="bunny-decoration bunny-6">🐇</div>
+
+    <div class="container">
+        <div class="header">
+            <div class="bunny-logo">🐰</div>
+            <h1>Servidor da Sammyzuka</h1>
+            <p class="subtitle">Solicitação de Staff</p>
+            <p class="server-name">Escolha a área que deseja se candidatar</p>
+        </div>
+
+        <div class="staff-grid">
+            <div class="staff-card">
+                <div class="staff-icon">🤝</div>
+                <div class="staff-title">Staff Parceria</div>
+                <div class="staff-description">Responsável por estabelecer e gerenciar parcerias estratégicas</div>
+                <a href="https://forms.gle/vmZsusLGRTa3vyqZ8" target="_blank" class="btn-apply">Candidatar-se 🐇</a>
+            </div>
+
+            <div class="staff-card">
+                <div class="staff-icon">📢</div>
+                <div class="staff-title">Staff Divulgação</div>
+                <div class="staff-description">Promover e divulgar conteúdo em diversas plataformas</div>
+                <a href="https://forms.gle/vmZsusLGRTa3vyqZ8" target="_blank" class="btn-apply">Candidatar-se 🐇</a>
+            </div>
+
+            <div class="staff-card">
+                <div class="staff-icon">💬</div>
+                <div class="staff-title">Staff Reviver Chat</div>
+                <div class="staff-description">Manter o chat ativo e engajar a comunidade</div>
+                <a href="https://forms.gle/vmZsusLGRTa3vyqZ8" target="_blank" class="btn-apply">Candidatar-se 🐇</a>
+            </div>
+
+            <div class="staff-card">
+                <div class="staff-icon">🛟</div>
+                <div class="staff-title">Staff Suporte/Ajuda</div>
+                <div class="staff-description">Auxiliar membros e resolver dúvidas da comunidade</div>
+                <a href="https://forms.gle/vmZsusLGRTa3vyqZ8" target="_blank" class="btn-apply">Candidatar-se 🐇</a>
+            </div>
+
+            <div class="staff-card">
+                <div class="staff-icon">👑</div>
+                <div class="staff-title">Líder de Staffs</div>
+                <div class="staff-description">Coordenar e liderar toda a equipe de staff</div>
+                <a href="https://forms.gle/vmZsusLGRTa3vyqZ8" target="_blank" class="btn-apply">Candidatar-se 🐇</a>
+            </div>
+
+            <div class="staff-card">
+                <div class="staff-icon">🎯</div>
+                <div class="staff-title">Líder de Parceria</div>
+                <div class="staff-description">Supervisionar e otimizar todas as parcerias</div>
+                <a href="https://forms.gle/vmZsusLGRTa3vyqZ8" target="_blank" class="btn-apply">Candidatar-se 🐇</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            🐰 Faça parte da equipe do Servidor da Sammyzuka e ajude a crescer nossa comunidade! 🐇
+        </div>
+    </div>
+</body>
+</html>
